@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Internal Server Error</title>
+    <title>Forbidden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
 
@@ -53,9 +53,18 @@
     </style>
 </head>
 <body>
-    <h1>Internal Server Error</h1>
-    <p>Sorry, but there was an internal server error.</p>
-    <p><a href="{{ url_for('main.index') }}">Return to the main page</a></p>
+    <div>
+        <h1>Forbidden</h1>
+        <p>
+            Sorry, but the page you were trying to view does not permit access.
+            <br><br>
+            You may need to login first.
+            <br><br>
+            If you are already logged in, you may be attempting to access something that isn't yours to access.
+            <br><br>
+            <a href="{{ url_for('main.index') }}">Return to the main page</a>
+        </p>
+    </div>
 </body>
 </html>
 <!-- IE needs 512+ bytes: http://blogs.msdn.com/b/ieinternals/archive/2010/08/19/http-error-pages-in-internet-explorer.aspx -->

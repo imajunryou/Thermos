@@ -7,8 +7,10 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        {% block styles %}
+          <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.min.css') }}">
+          <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        {% endblock %}
 
         <script src="{{ url_for('static', filename='js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>
     </head>
@@ -16,16 +18,24 @@
 
         <div class="header-container">
             <header class="wrapper clearfix">
-                <a href="{{ url_for('index') }}"><h1 class="title">Thermos</h1></a>
+                <a href="{{ url_for('main.index') }}"><h1 class="title">Thermos</h1></a>
                 <nav>
                     <ul>
-                        <li><a href="{{url_for('add')}}">Add URL</a></li>
+                        <li><a href="{{url_for('bookmarks.add')}}">Add URL</a></li>
                         {% if current_user.is_authenticated %}
-                          <li><a href="{{ url_for('user', username=current_user.username)}}">Bookmarks</a></li>
-                          <li><a href="{{ url_for('logout') }}">Sign out</a></li>
+                          <li>
+                            <a href="{{ url_for('bookmarks.user', username=current_user.username)}}">Bookmarks</a>
+                          </li>
+                          <li>
+                            <a href="{{ url_for('auth.logout') }}">Sign out</a>
+                          </li>
                         {% else %}
-                          <li><a href="{{ url_for('signup')}}">Sign up</a></li>
-                          <li><a href="{{ url_for('login') }}">Sign in</a></li>
+                          <li>
+                            <a href="{{ url_for('auth.signup')}}">Sign up</a>
+                          </li>
+                          <li>
+                            <a href="{{ url_for('auth.login') }}">Sign in</a>
+                          </li>
                         {% endif %}
                     </ul>
                 </nav>
@@ -51,8 +61,22 @@
 
               {% block sidebar %}
               <aside>
-                  <h3>aside<h3>
-                  <p>Filler text</p>
+                  {% if current_user.is_authenticated %}
+                    <h3>Hello, {{ current_user.username }}!</h3>
+                    <ul>
+                      <li>You have {{ current_user.bookmarks.count()}} bookmarks so far!</li>
+                    </ul>
+                  {% else %}
+                      <h3>Hello!</h3>
+                      <p>
+                        When you're logged in, you can see some information about your bookmark collection here.  Easy, and at a glance.
+                      </p>
+                  {% endif %}
+
+                  <h3>Tags</h3>
+                  {% for t in all_tags() %}
+                    <a href="{{ url_for('bookmarks.tag', name=t) }}">{{t}}</a>
+                  {% endfor %}
               </aside>
               {% endblock %}
             </div> <!-- #main -->
@@ -64,9 +88,10 @@
             </footer>
         </div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="{{ url_for('static', filename='js/vendor/jquery-1.11.2.min.js') }}"><\/script>')</script>
+        {{ moment.include_jquery() }}
+        {{ moment.include_moment() }}
 
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        {% block scripts %}
+        {% endblock %}
     </body>
 </html>

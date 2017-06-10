@@ -1,7 +1,14 @@
 /*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
 
-html {
+html,
+button,
+input,
+select,
+textarea {
     color: #222;
+}
+
+html {
     font-size: 1em;
     line-height: 1.4;
 }
@@ -153,24 +160,37 @@ nav a:hover {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-a {
-    color: #039447;
-}
 
-a:hover {
-    color: #D39447;
-}
-
+/* Link styling */
+a,
 a:visited {
     color: #1E5373;
+}
+
+a:hover, aside a:hover, aside a:visited:hover {
+    color: #D39447;
 }
 
 h1, h2, h3, h4, h5, h6 {
     color: #1E5373;
 }
 
+aside a {
+    color: #FFD6A3;
+}
+
+aside a:hover {
+    color: #F5BB73;
+}
+
+aside a:visited {
+    color: #D39447;
+}
+
 .main aside h3,
-footer h3 {
+footer h3,
+footer a,
+footer a:visited {
     color: white;
 }
 
@@ -189,6 +209,44 @@ article.flashes {
     margin-bottom: 1em;
 }
 
+/* Fix form layout with flashes */
+
+section {
+    clear: left;
+}
+
+/* Bookmark list styling */
+ul.bookmarks {
+    list-style: none none;
+    padding-left: 0;
+}
+
+.bookmark {
+    padding-bottom: .5em;
+    border-top: 1px solid #7EA6BF;
+    padding: 1em 0;
+}
+
+a.header {
+    color: #326786;
+    text-decoration: none;
+    background-color: #D8D9DD;
+    display: block;
+}
+
+a.header h3 {
+    margin: 0 0;
+}
+
+div.info {
+    font-size: .95em;
+    color: #666666;
+}
+
+span.editlinks {
+    float: right;
+}
+
 /* Error styling */
 
 .error, .error input {
@@ -205,12 +263,6 @@ tr.submit button {
 
 input, button {
     margin-left: 10px;
-}
-
-
-/* Attempt to fix footer link colors */
-.footer-container a {
-    color: white;
 }
 
 /* ==========================================================================
